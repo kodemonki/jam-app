@@ -24,7 +24,7 @@ function App() {
         setProtectedData(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        setProtectedData(error.message);
       });
   };
 
@@ -32,7 +32,7 @@ function App() {
     <div className="App">
       <button onClick={getToken}>getToken</button>
       <p>{jwt}</p>
-      {jwt !== "" && <button onClick={getProtected}>getProtected</button>}
+      <button onClick={getProtected}>getProtected</button>
       {protectedData !== "" && <p>{protectedData}</p>}
     </div>
   );
