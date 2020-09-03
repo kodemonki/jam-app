@@ -1,39 +1,29 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import Login from "./components/Login";
+import Homepage from "./components/Homepage";
 
 function App() {
-  const [jwt, setJwt] = useState("");
-  const [protectedData, setProtectedData] = useState("");
-
-  const getToken = (e) => {
-    axios
-      .get("http://localhost:3001/login?u=usertest&p=passtest")
-      .then((response) => {
-        setJwt(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const getProtected = (e) => {
-    axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
-    axios
-      .get("http://localhost:3001/protected")
-      .then((response) => {
-        setProtectedData(response.data);
-      })
-      .catch((error) => {
-        setProtectedData(error.message);
-      });
-  };
 
   return (
     <div className="App">
-      <button onClick={getToken}>getToken</button>
-      <p>{jwt}</p>
-      <button onClick={getProtected}>getProtected</button>
-      {protectedData !== "" && <p>{protectedData}</p>}
+      <Router>
+        <Route
+          exact
+          path="/"
+          render={(renderProps) => (
+            <Login {...renderProps} nextRoute="/homepage" />
+          )}
+        />
+        <Route
+          exact
+          path="/homepage"
+          render={(renderProps) => (
+            <Homepage {...renderProps} nextRoute="/homepage" />
+          )}
+        />
+      </Router>
     </div>
   );
 }
