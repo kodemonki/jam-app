@@ -20,15 +20,15 @@ function Homepage(props) {
       });
   };
 
-  const newJam = (e) => {
-    console.log("new jam");
+  const newProject = (e) => {
+    console.log("new Project");
   };
 
   return (
     <div className="Homepage">
-      <button onClick={newJam}>New Jam</button>
-      <p>Projects</p>
+      <p>Projects<br/>--------</p>
       {protectedData !== "" && <p>{protectedData}</p>}
+      <button onClick={newProject}>New Project</button>
     </div>
   );
 }

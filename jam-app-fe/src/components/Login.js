@@ -17,7 +17,7 @@ function Login(props) {
 
   return (
     <div className="Login">
-      <p>Login</p>
+      <p>Login<br/>------</p>
       <button onClick={getToken}>Submit</button>
     </div>
   );
