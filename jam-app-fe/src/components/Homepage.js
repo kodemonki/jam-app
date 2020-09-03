@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Homepage(props) {
-  const [protectedData, setProtectedData] = useState("");
+  const [protectedData, setProtectedData] = useState(null);
 
   useEffect(() => {
     getProtected();
@@ -10,7 +10,7 @@ function Homepage(props) {
 
   const getProtected = (e) => {
     axios
-      .get("http://localhost:3001/protected")
+      .get("http://localhost:3001/projects")
       .then((response) => {
         setProtectedData(response.data);
       })
@@ -27,7 +27,9 @@ function Homepage(props) {
   return (
     <div className="Homepage">
       <p>Projects<br/>--------</p>
-      {protectedData !== "" && <p>{protectedData}</p>}
+      {protectedData !==  null && protectedData.map((project, index) => (
+        <p key={'project+index'}>{project.name}</p>
+      ))}
       <button onClick={newProject}>New Project</button>
     </div>
   );
