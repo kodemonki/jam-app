@@ -7,7 +7,7 @@ function App() {
 
   const getToken = (e) => {
     axios
-      .get("http://localhost:3001/auth?u=usertest&p=passtest")
+      .get("http://localhost:3001/login?u=usertest&p=passtest")
       .then((response) => {
         setJwt(response.data);
       })
