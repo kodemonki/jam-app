@@ -15,13 +15,18 @@ function Homepage(props) {
         setProtectedData(response.data);
       })
       .catch((error) => {
-        console.log(error.message);
+        setProtectedData(error.message);
       });
+  };
+
+  const newJam = (e) => {
+    console.log("new jam");
   };
 
   return (
     <div className="Homepage">
-      <p>Homepage</p>
+      <button onClick={newJam}>New Jam</button>
+      <p>Projects</p>
       {protectedData !== "" && <p>{protectedData}</p>}
     </div>
   );

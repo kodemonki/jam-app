@@ -5,25 +5,26 @@ import Login from "./components/Login";
 import Homepage from "./components/Homepage";
 
 function App() {
-
   return (
     <div className="App">
-      <Router>
-        <Route
-          exact
-          path="/"
-          render={(renderProps) => (
-            <Login {...renderProps} nextRoute="/homepage" />
-          )}
-        />
-        <Route
-          exact
-          path="/homepage"
-          render={(renderProps) => (
-            <Homepage {...renderProps} nextRoute="/homepage" />
-          )}
-        />
-      </Router>
+      <div className="Page">
+        <Router>
+          <Route
+            exact
+            path="/"
+            render={(renderProps) => (
+              <Login {...renderProps} nextRoute="/homepage" />
+            )}
+          />
+          <Route
+            exact
+            path="/homepage"
+            render={(renderProps) => (
+              <Homepage {...renderProps} nextRoute="/homepage" />
+            )}
+          />
+        </Router>
+      </div>
     </div>
   );
 }
