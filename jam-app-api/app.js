@@ -14,5 +14,5 @@ app.use("/login", login);
 app.use("/protected", protected);
 
 app.listen(config.get("app.port"), () =>
-  console.log("Jam-App-Api : Server started")
+  console.log("Server started")
 );
