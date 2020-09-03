@@ -15,7 +15,8 @@ function Homepage(props) {
         setProtectedData(response.data);
       })
       .catch((error) => {
-        setProtectedData(error.message);
+        console.log(error.message);
+        props.history.push('/');
       });
   };
 

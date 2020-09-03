@@ -3,6 +3,7 @@ const config = require("config");
 
 class AuthService {
   getToken(username, password) {
+    
     /**
      * assume its valid
      */
