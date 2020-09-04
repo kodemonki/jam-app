@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
 import Homepage from "./components/Homepage";
@@ -11,30 +11,31 @@ function App() {
     <div className="App">
       <div className="Page">
         <Router>
-          <Route
-            exact
-            path="/"
-            render={(renderProps) => (
-              <Login
-                {...renderProps}
-                setUserData={setUserData}
-                nextRoute="/homepage"
+          <Switch>
+            {userData !== null && (
+              <Route
+                exact
+                path="/homepage"
+                render={(renderProps) => (
+                  <Homepage
+                    {...renderProps}
+                    userData={userData}
+                    nextRoute="/homepage"
+                  />
+                )}
               />
             )}
-          />
-          {userData !== null && (
             <Route
-              exact
-              path="/homepage"
+              path="/"
               render={(renderProps) => (
-                <Homepage
+                <Login
                   {...renderProps}
-                  userData={userData}
+                  setUserData={setUserData}
                   nextRoute="/homepage"
                 />
               )}
             />
-          )}
+          </Switch>
         </Router>
       </div>
     </div>
