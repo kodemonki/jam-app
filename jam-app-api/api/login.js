@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
 
   const data = await authService.getToken(username, password);
 
-  res.send(data.jwt);
+  res.send(data);
 });
 
 module.exports = router;

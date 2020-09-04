@@ -7,7 +7,8 @@ function Login(props) {
     axios
       .get("http://localhost:3001/login?u=Tom&p=password")
       .then((response) => {
-        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data;
+        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
+        props.setUserData(response.data)
         props.history.push(props.nextRoute);
       })
       .catch((error) => {

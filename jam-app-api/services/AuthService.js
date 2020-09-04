@@ -3,7 +3,6 @@ const config = require("config");
 const MongoClient = require("mongodb").MongoClient;
 
 class AuthService {
-
   async generateToken() {
     const payload = { auth: "true" };
     const token = await jsonwebtoken.sign(payload, config.get("jwt.secret"), {
@@ -16,30 +15,36 @@ class AuthService {
     const uri = "mongodb://localhost:27017";
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     let isValid = true;
+    let user = null;
     try {
       await client.connect();
       const database = client.db("JamAppDb");
       const collection = database.collection("users");
       const query = { username: username, password: password };
-      const user = await collection.findOne(query);
+      user = await collection.findOne(query);
       if (user === null) {
         isValid = false;
-      }
+      } 
     } catch (e) {
       console.error(e);
     } finally {
       await client.close();
     }
-    return isValid;
+
+    if (isValid === false) {
+      return null;
+    } else {
+      return { id: user._id };
+    }
   }
 
   async getToken(username, password) {
-    const isValid = await this.validateUser(username, password);
-    if (isValid === true) {
+    const user = await this.validateUser(username, password);
+    if (user !== null) {
       const token = await this.generateToken();
-      return { jwt: token };
+      return { id: user.id, username: username, jwt: token };
     } else {
-      return { jwt: null };
+      return { id: null, username: null, jwt: null };
     }
   }
 }
