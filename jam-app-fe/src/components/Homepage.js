@@ -6,7 +6,7 @@ function Homepage(props) {
 
   const getProtected = (e) => {
     axios
-      .get("http://localhost:3001/projects")
+      .get("http://localhost:3001/projects?u=" + props.userData.id)
       .then((response) => {
         setProtectedData(response.data);
       })

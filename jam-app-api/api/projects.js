@@ -13,7 +13,7 @@ router.get(
     algorithms: config.get("jwt.algorithms"),
   }),
   async (req, res) => {
-    const userid = -1;
+    const userid = req.query.u;
     const projects = await projectsService.getProjectsForUser(userid);
     res.send(projects);
   }

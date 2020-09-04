@@ -15,18 +15,27 @@ function App() {
             exact
             path="/"
             render={(renderProps) => (
-              <Login {...renderProps} setUserData={setUserData} nextRoute="/homepage" />
+              <Login
+                {...renderProps}
+                setUserData={setUserData}
+                nextRoute="/homepage"
+              />
             )}
           />
-          <Route
-            exact
-            path="/homepage"
-            render={(renderProps) => (
-              <Homepage {...renderProps} userData={userData} nextRoute="/homepage" />
-            )}
-          />
+          {userData !== null && (
+            <Route
+              exact
+              path="/homepage"
+              render={(renderProps) => (
+                <Homepage
+                  {...renderProps}
+                  userData={userData}
+                  nextRoute="/homepage"
+                />
+              )}
+            />
+          )}
         </Router>
-        {userData !== null && console.log(userData)}
       </div>
     </div>
   );
