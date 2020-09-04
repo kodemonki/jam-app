@@ -5,7 +5,7 @@ function Login(props) {
 
   const getToken = (e) => {
     axios
-      .get("http://localhost:3001/login?u=usertest&p=passtest")
+      .get("http://localhost:3001/login?u=Tom&p=password")
       .then((response) => {
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data;
         props.history.push(props.nextRoute);
