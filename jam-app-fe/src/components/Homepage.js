@@ -4,10 +4,6 @@ import axios from "axios";
 function Homepage(props) {
   const [protectedData, setProtectedData] = useState(null);
 
-  useEffect(() => {
-    getProtected();
-  }, []);
-
   const getProtected = (e) => {
     axios
       .get("http://localhost:3001/projects")
@@ -16,20 +12,36 @@ function Homepage(props) {
       })
       .catch((error) => {
         console.log(error.message);
-        props.history.push('/');
+        props.history.push("/");
       });
   };
+  useEffect(() => {
+    getProtected();
+    // eslint-disable-next-line
+  }, []);
 
   const newProject = (e) => {
     console.log("new Project");
   };
 
+  const openProject = (e) => {
+    console.log("open Project");
+  };
+
   return (
     <div className="Homepage">
-      <p>Projects<br/>--------</p>
-      {protectedData !==  null && protectedData.map((project, index) => (
-        <p key={'project+index'}>{project.name}</p>
-      ))}
+      <p>
+        Projects
+        <br />
+        --------
+      </p>
+      {protectedData !== null &&
+        protectedData.map((project, index) => (
+          <p key={"project" + index}>
+            <button onClick={openProject}>Open {project.name}</button>
+          </p>
+        ))}
+      <p>--------</p>
       <button onClick={newProject}>New Project</button>
     </div>
   );
