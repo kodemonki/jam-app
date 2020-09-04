@@ -3,14 +3,18 @@ const jwt = require("express-jwt");
 const router = express.Router();
 const config = require("config");
 
+const ProjectsService = require("../services/ProjectsService");
+const projectsService = new ProjectsService();
+
 router.get(
   "/",
   jwt({
     secret: config.get("jwt.secret"),
     algorithms: config.get("jwt.algorithms"),
   }),
-  (req, res) => {
-    const projects = [{ name: "Project1" }, { name: "Project2" }, { name: "Project3" }];
+  async (req, res) => {
+    const userid = -1;
+    const projects = await projectsService.getProjectsForUser(userid);
     res.send(projects);
   }
 );
