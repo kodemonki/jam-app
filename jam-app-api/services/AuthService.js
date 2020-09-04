@@ -3,9 +3,18 @@ const config = require("config");
 const MongoClient = require("mongodb").MongoClient;
 
 class AuthService {
-  async getToken(username, password) {
+
+  async generateToken() {
+    const payload = { auth: "true" };
+    const token = await jsonwebtoken.sign(payload, config.get("jwt.secret"), {
+      expiresIn: 24 * 60 * 60,
+    });
+    return token;
+  }
+
+  async validateUser(username, password) {
     const uri = "mongodb://localhost:27017";
-    const client = new MongoClient(uri,{ useUnifiedTopology: true });
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
     let isValid = true;
     try {
       await client.connect();
@@ -21,13 +30,15 @@ class AuthService {
     } finally {
       await client.close();
     }
+    return isValid;
+  }
+
+  async getToken(username, password) {
+    const isValid = await this.validateUser(username, password);
     if (isValid === true) {
-      const payload = { auth: "true" };
-      const token = jsonwebtoken.sign(payload, config.get("jwt.secret"), {
-        expiresIn: 24 * 60 * 60,
-      });
+      const token = await this.generateToken();
       return { jwt: token };
-    }else{
+    } else {
       return { jwt: null };
     }
   }
