@@ -15,33 +15,40 @@ function Homepage(props) {
         props.history.push("/");
       });
   };
+
   useEffect(() => {
     getProtected();
     // eslint-disable-next-line
   }, []);
 
   const newProject = (e) => {
-    console.log("new Project");
+    props.history.push("/newproject");
   };
 
-  const openProject = (e) => {
-    console.log("open Project");
+  const openProject = (project) => {
+    props.setProjectData(project);
+    props.history.push("/openproject");
   };
-
   return (
     <div className="Homepage">
       <p>
         Projects
         <br />
-        --------
+        ---------
       </p>
       {protectedData !== null &&
         protectedData.map((project, index) => (
           <p key={"project" + index}>
-            <button onClick={openProject}>Open {project.name}</button>
+            <button
+              onClick={() => {
+                openProject(project);
+              }}
+            >
+              Open {project.name}
+            </button>
           </p>
         ))}
-      <p>--------</p>
+      <p>---------</p>
       <button onClick={newProject}>New Project</button>
     </div>
   );

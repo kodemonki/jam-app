@@ -12,13 +12,13 @@ class AuthService {
   }
 
   async validateUser(username, password) {
-    const uri = "mongodb://localhost:27017";
+    const uri = config.get("mongo.uri");
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     let isValid = true;
     let user = null;
     try {
       await client.connect();
-      const database = client.db("JamAppDb");
+      const database = client.db(config.get("mongo.db"));
       const collection = database.collection("users");
       const query = { username: username, password: password };
       user = await collection.findOne(query);

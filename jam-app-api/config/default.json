@@ -5,5 +5,9 @@
   "jwt": {
     "secret": "secret",
     "algorithms": ["HS256"]
+  },
+  "mongo":{
+    "uri": "mongodb://localhost:27017",
+    "db":"JamAppDb"
   }
 }

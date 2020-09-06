@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
 import Homepage from "./components/Homepage";
+import NewProject from "./components/NewProject";
+import OpenProject from "./components/OpenProject";
 
 function App() {
   const [userData, setUserData] = useState(null);
+  const [projectData, setProjectData] = useState(null);
 
   return (
     <div className="App">
@@ -20,11 +23,34 @@ function App() {
                   <Homepage
                     {...renderProps}
                     userData={userData}
-                    nextRoute="/homepage"
+                    setProjectData={setProjectData}
                   />
                 )}
               />
             )}
+            <Route
+            exact
+              path="/newproject"
+              render={(renderProps) => (
+                <NewProject
+                  {...renderProps}
+                  userData={userData}
+                  nextRoute="/homepage"
+                />
+              )}
+            />
+            <Route
+            exact
+              path="/openproject"
+              render={(renderProps) => (
+                <OpenProject
+                  {...renderProps}
+                  userData={userData}
+                  projectData={projectData}
+                  nextRoute="/homepage"
+                />
+              )}
+            />
             <Route
               path="/"
               render={(renderProps) => (
